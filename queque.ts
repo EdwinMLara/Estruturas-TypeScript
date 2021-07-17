@@ -33,15 +33,3 @@ class Queue<Type>{
 }
 
 export default Queue;
-
-/*const queue = new Queue(1);
-console.log(queue.dequeue());
-queue.enqueue(2);
-queue.enqueue(3);
-console.log(queue.isEmpty());
-
-console.log(queue.dequeue());
-console.log(queue.dequeue());
-
-console.log(queue);
-console.log(queue.isEmpty());*/

@@ -17,8 +17,3 @@ class Stack<Type>{
 }
 
 export default Stack
-/*const stack = new Stack(1);
-stack.push(2);
-stack.push(3);
-
-console.log(stack.pop());*/

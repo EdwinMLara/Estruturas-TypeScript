@@ -37,14 +37,14 @@ class MaxAndMinHean<Type>{
 
     checkBalance(node : NodeMMH<Type>):number{
         let auxRight = node.right === null ? 0 : node.right.right === null ? 1 : 2;
-        if((auxRight > 0) && (node.right?.left !== null)){
-            auxRight = 2;
-        }
         let auxLeft = node.left === null ? 0 : node.left.left === null ? 1 : 2;
-        if((auxLeft > 0) && (node.left?.right !== null)){
-            auxLeft = 2
-        }
-        return (auxRight as number) - (auxLeft as number);
+        return (auxRight - auxLeft);
+    }
+
+    checkDoubleBalance(node:NodeMMH<Type>):number{
+        let auxRight = node.right === null ? 0 : node.right.left === null ? 1 : 2;
+        let auxLeft = node.left === null ? 0 : node.left.right === null ? 1 : 2;
+        return (auxRight - auxLeft); 
     }
 
     insert(data:Type,child ?: ChildNodeMMH){
@@ -75,30 +75,48 @@ class MaxAndMinHean<Type>{
         console.log(`Right balancing node with ${value}`);
         let aux = this.root;
         if(aux.data === value){
-            if(aux.right?.right !== null){
-                this.root = aux.right as NodeMMH<Type>;
-                aux.right = null;
-                this.root.left = aux;
-            }else{
-                let auxNode1 = aux.right;
-                let auxNode2 = aux.right.left;
-                auxNode2!.right = auxNode1;
-                auxNode1.left = null;
-                auxNode2!.left = aux;
-                aux.right = null;
-                this.root = auxNode2 as NodeMMH<Type>;
-            }
+            this.root = aux.right;
+            aux.right = null;
+            this.root.left = aux; 
         }
         else{
             while(aux.right !== null){
                 if(aux.right?.data === value){
-                    let auxNode = aux.right as NodeMMH<Type>;
-                    aux.right = aux.right.right as NodeMMH<Type>;
+                    let auxNode = aux.right;
+                    aux.right = aux.right.right;
                     auxNode.right = null;
                     aux.right.left = auxNode;
                     break;
                 }
-                aux = aux.right as NodeMMH<Type>;
+                aux = aux.right;
+            }
+        }
+    }
+
+    rightLeftBalance(value :  Type){
+        console.log(`Right Left Balancing ${value}`);
+        let aux = this.root;
+        if(aux.data === value){
+            let auxNode1 = aux.right;
+            let auxNode2 = aux.right.left;
+            auxNode2!.right = auxNode1;
+            auxNode1.left = null;
+            auxNode2!.left = aux;
+            aux.right = null;
+            this.root = auxNode2;
+        }else{
+            while(aux.right !== null){
+                if(aux.right?.data === value){
+                    let auxNode1 = aux.right;
+                    let auxNode2 = aux.right.left;
+                    auxNode2!.right = auxNode1;
+                    auxNode1.left = null;
+                    auxNode2!.data = aux;
+                    aux.right = null;
+                    aux = auxNode2;
+                    break; 
+                }
+                aux = aux.right;
             }
         }
     }
@@ -107,64 +125,44 @@ class MaxAndMinHean<Type>{
         console.log(`Left balancing node with ${value}`);
         let aux = this.root;
         if(aux.data === value){
-            if(aux.left?.left !== null){
-                this.root = aux.left as NodeMMH<Type>;
-                aux.left = null;
-                this.root.right = aux;
-            }else{
-                let auxNode1 = aux.left;
-                let auxNode2 = aux.left.right;
-                auxNode2!.left = auxNode1;
-                auxNode1.right = null;
-                auxNode2!.right = aux;
-                aux.left = null;
-                this.root = auxNode2 as NodeMMH<Type>;
-            }
+            this.root = aux.left;
+            aux.left = null;
+            this.root.right = aux;
         }else{
             while(aux.left !== null){
                 if(aux.left?.data === value){
-                    let auxNode = aux.left as NodeMMH<Type>;
-                    aux.left = aux.left.left  as NodeMMH<Type>;
+                    let auxNode = aux.left ;
+                    aux.left = aux.left.left ;
                     auxNode.left = null;
                     aux.left.right = auxNode;
                     break;
                 }
-                aux.left  as NodeMMH<Type>;
+                aux = aux.left ;
+            }
+        }
+    }
+
+    leftRightBalancing(value : Type){
+        console.log(`Left right balancing ${value}`);
+        let aux = this.root;
+        if(aux.data === value){
+            let auxNode1 = aux.left;
+            let auxNode2 = aux.left.right;
+            auxNode2!.left = auxNode1;
+            auxNode1.right = null;
+            auxNode2!.right = aux;
+            aux.left = null;
+            this.root = auxNode2;
+        }else{
+            while(aux.left !== null){
+                if(aux.left.data === value){
+                    break;
+                }
+                aux = aux.left;
             }
         }
     }
 }
 
-/**
- * balanceando a la izquierda
- */
-const arbol = new MaxAndMinHean(4);
-arbol.insert(3);
-arbol.insert(2);
-arbol.ordenPorNivel();
 
-/**
- * balancenando a la derecha 
- */
-
-const arbol2 = new MaxAndMinHean(2);
-arbol2.insert(3);
-arbol2.insert(4);
-arbol2.ordenPorNivel();
-
-/**
- * balanceo de derecha a izquierda
- */
-
- const arbol3 = new MaxAndMinHean(2);
- arbol3.insert(5);
- arbol3.insert(4);
- arbol3.ordenPorNivel();
-
- /**
- * balanceando de izquierda a derecha
- */
-  const arbol4 = new MaxAndMinHean(5);
-  arbol4.insert(2);
-  arbol4.insert(4);
-  arbol4.ordenPorNivel();
+export default MaxAndMinHean;

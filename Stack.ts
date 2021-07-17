@@ -1,17 +1,17 @@
 import LinkedList from './list';
 
-class Stack{
-    headS : LinkedList;
+class Stack<Type>{
+    headS : LinkedList<Type>;
 
-    constructor(value : any){
+    constructor(value : Type){
         this.headS = new LinkedList(value);
     }
 
-    push<Type>(value : Type): void{
+    push(value : Type): void{
         this.headS.insertFirst(value);
     }
 
-    pop<Type>():Type{
+    pop():Type{
         return this.headS.deleteFirst();
     }
 }

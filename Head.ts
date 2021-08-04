@@ -47,32 +47,39 @@ class MaxAndMinHean<Type>{
         return (auxRight - auxLeft); 
     }
 
-    insert(data:Type,child ?: ChildNodeMMH){
-        let parent = ((child === undefined) ? this.root : child) as NodeMMH<Type>;
-        let balance = 0;
-        if(parent.data < data){
-            parent.right === null ? parent.right = new NodeMMH(data) : this.insert(data,parent.right);
-            balance = this.checkBalance(parent);
-            }else{
-            parent.left === null ? parent.left = new NodeMMH(data) : this.insert(data,parent.left);
-            balance = this.checkBalance(parent);
-        }
-
+    typeBalance(data:Type,balance:number,type:boolean){
         if(-1 > balance || balance > 1){
             switch (true){
                 case balance > 1:
-                    this.rightBalance(parent.data);
+                    type ? this.rightLeftBalance(data) : this.rightBalance(data);
                     break;
                 case balance < -1:
-                    this.leftBalance(parent.data);
+                    type ? this.leftRightBalancing(data) : this.leftBalance(data);
                     break;
             }
+        } 
+    }
 
+    insert(data:Type,child ?: ChildNodeMMH){
+        let parent = ((child === undefined) ? this.root : child) as NodeMMH<Type>;
+        let balance = 0;
+        let balance2 = 0;
+        if(parent.data < data){
+            parent.right === null ? parent.right = new NodeMMH(data) : this.insert(data,parent.right);
+            balance = this.checkBalance(parent);
+            balance2 = this.checkDoubleBalance(parent);
+            }else{
+            parent.left === null ? parent.left = new NodeMMH(data) : this.insert(data,parent.left);
+            balance = this.checkBalance(parent);
+            balance2 = this.checkDoubleBalance(parent);
         }
+
+        this.typeBalance(parent.data,balance,false);
+        this.typeBalance(parent.data,balance2,true);
+        
     }
 
     rightBalance(value : Type){
-        console.log(`Right balancing node with ${value}`);
         let aux = this.root;
         if(aux.data === value){
             this.root = aux.right;
@@ -94,7 +101,6 @@ class MaxAndMinHean<Type>{
     }
 
     rightLeftBalance(value :  Type){
-        console.log(`Right Left Balancing ${value}`);
         let aux = this.root;
         if(aux.data === value){
             let auxNode1 = aux.right;
@@ -111,7 +117,7 @@ class MaxAndMinHean<Type>{
                     let auxNode2 = aux.right.left;
                     auxNode2!.right = auxNode1;
                     auxNode1.left = null;
-                    auxNode2!.data = aux;
+                    auxNode2!.left = aux;
                     aux.right = null;
                     aux = auxNode2;
                     break; 
@@ -122,7 +128,6 @@ class MaxAndMinHean<Type>{
     }
 
     leftBalance(value : Type){
-        console.log(`Left balancing node with ${value}`);
         let aux = this.root;
         if(aux.data === value){
             this.root = aux.left;
@@ -143,7 +148,6 @@ class MaxAndMinHean<Type>{
     }
 
     leftRightBalancing(value : Type){
-        console.log(`Left right balancing ${value}`);
         let aux = this.root;
         if(aux.data === value){
             let auxNode1 = aux.left;
@@ -156,6 +160,13 @@ class MaxAndMinHean<Type>{
         }else{
             while(aux.left !== null){
                 if(aux.left.data === value){
+                    let auxNode1 = aux.left;
+                    let auxNode2 = aux.left.right;
+                    auxNode2!.left = auxNode1;
+                    auxNode1.right = null;
+                    auxNode2!.right = aux;
+                    aux.left = null;
+                    aux = auxNode2;
                     break;
                 }
                 aux = aux.left;

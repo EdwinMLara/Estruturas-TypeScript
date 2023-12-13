@@ -3,7 +3,11 @@
   "name": "estruturas-typescript",
   "version": "1.0.0",
   "description": "it's a library to practice and get a good understanding from data structures. However we can see how they are build",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,7 +16,7 @@
     "url": "git+https://github.com/EdwinMLara/Estruturas-TypeScript.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "EdwinMLara",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/EdwinMLara/Estruturas-TypeScript/issues"

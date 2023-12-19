@@ -80,14 +80,12 @@ class LinkedList<Type>{
         return true;
     }
 
-    printList():string{
-        let strResult = "";
+    printList():void{
         let aux = this.head;
         while(aux !== null){
-            strResult += aux.data + " ";
+            console.log(aux.data);
             aux = aux.next as NodeL<Type>;
         }
-        return strResult;
     }
 
     removeDuplicates(){

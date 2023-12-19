@@ -9,19 +9,31 @@ it's a library to practice and get a good understanding from data structures. Ho
 
 ## How to install
 
+```
 npm install estruturas-typescript
+```
 
 One example about how to use is shown below. in this case we are using an Min-Max Head binary tree which gonna print pre-order transversal visit
 
 ```
-import {MaxAndMinHean} from '/estruturas-typescript'
+interface user {
+    id : number
+    username : string
+    password : string 
+}
 
-const arbolRight = new MaxAndMinHean(1);
+console.log("===============================================================");
+console.log("      Testing a generic linked list with an user object       ");
+console.log("===============================================================");
 
-arbolRight.insert(2);
-arbolRight.insert(3);
-arbolRight.ordenPorNivel();
+const list  = new LinkedList<user>({id:1, username:"User1", password:"prueba"});
+list.insertFirst({id:2, username:"User2", password:"password"});
+list.insertFirst({id:3, username:"User3", password:"Zeal12354"});
+list.insertFirst({id:4, username:"User4", password:"Debt12548"});
+list.insertFirst({id:5, username:"User5", password:"jzal12548"});
+list.printList();
 
+console.log("===============================================================");
 ```
 
 ### Available data structues in this version

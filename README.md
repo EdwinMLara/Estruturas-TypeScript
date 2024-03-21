@@ -13,7 +13,7 @@ it's a library to practice and get a good understanding from data structures. Ho
 npm install estruturas-typescript
 ```
 
-One example about how to use is shown below. in this case we are using an Min-Max Head binary tree which gonna print pre-order transversal visit
+One example about how to use this library is shown below. In this case we are using an linked list which it gonna store an object
 
 ```
 interface user {
@@ -44,3 +44,5 @@ we going to list the available  data structures a their methods at hand
 - Queue
 - Binary tree
 - Min max head
+
+![Linked list](https://github.com/EdwinMLara/Estruturas-TypeScript/blob/master/src/assets/lista.gif)

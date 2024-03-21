@@ -40,9 +40,34 @@ console.log("===============================================================");
 we going to list the available  data structures a their methods at hand
 
 - Linked list
+    * insertFirst
+    * insertLast
+    * size
+    * printList
+    * deleteFirst
+    * delete
+    * removeDuplicates
 - Stack
+    * push
+    * pop
 - Queue
+    * isEmpty
+    * enqueue
+    * dequeue
+    * size
 - Binary tree
+    * insert
+    * preOrderFindMaxHeigh
+    * ordenPorNivel
 - Min max head
+    * ordenPorNivel
+    * checkBalance
+    * checkDoubleBalance
+    * typeBalance
+    * insert
+    * rightBalance
+    * rightLeftBalance
+    * leftBalance
+    * leftRightBalancing
 
 ![Linked list](https://github.com/EdwinMLara/Estruturas-TypeScript/blob/master/src/assets/lista.gif)

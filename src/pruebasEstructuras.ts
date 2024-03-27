@@ -5,7 +5,7 @@ import BTree from "./binaryTree";
 import MaxAndMinHean from "./Head";
 import GraphLA from "./graph";
 
-// =========== Linked List ============= 
+// =========== Linked List =============
 
 /** 
 interface user {
@@ -28,7 +28,6 @@ list.printList();
 console.log("===============================================================");
 
 */
-
 
 /*const queue = new Queue(1);
 console.log(queue.dequeue());
@@ -71,12 +70,10 @@ arbolLeftRight.insert(3);
 arbolLeftRight.insert(5);
 arbolLeftRight.ordenPorNivel(); */
 
-const graph = new GraphLA(4);  
-
-graph.addVertice(9);
-graph.addVertice(5);
-graph.addEdges(4,6);
-graph.addEdges(9,6);
-console.log(graph.vertices.printList());
-
-
+const graph = new GraphLA(1);
+graph.addVertice(4);
+graph.addVertice(3);
+console.log(graph);
+graph.addEdges({ origen: 1, destino: 4 });
+graph.addEdges({ origen: 1, destino: 3 });
+graph.showVertices();

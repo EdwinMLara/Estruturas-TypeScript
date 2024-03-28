@@ -66,6 +66,9 @@ we going to list the available data structures a their methods at hand
   - enqueue
   - dequeue
   - size
+
+![Pilas](https://github.com/EdwinMLara/Estruturas-TypeScript/blob/master/src/assets/cola.gif)
+
 - Binary tree
   - insert
   - preOrderFindMaxHeigh
@@ -80,5 +83,3 @@ we going to list the available data structures a their methods at hand
   - rightLeftBalance
   - leftBalance
   - leftRightBalancing
-
-![Linked list](https://github.com/EdwinMLara/Estruturas-TypeScript/blob/master/src/assets/lista.gif)

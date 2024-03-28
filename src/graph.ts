@@ -2,8 +2,8 @@ import LinkedList from "./list";
 import { equals } from "./utils";
 
 interface Adyacencia {
-  origen: Number;
   destino: Number;
+  peso: Number;
 }
 
 class NodeG<Type> {
@@ -28,10 +28,10 @@ class GraphLA<Type> {
     this.vertices = new LinkedList(node);
   }
 
-  addEdges(edge: Adyacencia): boolean {
+  addEdges(id: Number, edge: Adyacencia): boolean {
     let vertice = this.vertices.head;
     while (vertice !== null) {
-      if (edge.origen === vertice.data.id) {
+      if (id === vertice.data.id) {
         vertice.data.adyacencia.push(edge);
       }
       vertice = vertice.next;

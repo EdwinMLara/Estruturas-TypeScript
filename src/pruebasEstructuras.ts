@@ -74,6 +74,6 @@ const graph = new GraphLA(1);
 graph.addVertice(4);
 graph.addVertice(3);
 console.log(graph);
-graph.addEdges({ origen: 1, destino: 4 });
-graph.addEdges({ origen: 1, destino: 3 });
+graph.addEdges(1, { destino: 4, peso: 2 });
+graph.addEdges(1, { destino: 3, peso: 3 });
 graph.showVertices();

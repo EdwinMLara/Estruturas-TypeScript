@@ -59,7 +59,7 @@ we going to list the available data structures a their methods at hand
   - push
   - pop
 
-![Linked list](hhttps://github.com/EdwinMLara/Estruturas-TypeScript/blob/master/src/assets/pilas.gif)
+![Pilas](https://github.com/EdwinMLara/Estruturas-TypeScript/blob/master/src/assets/pilas.gif)
 
 - Queue
   - isEmpty

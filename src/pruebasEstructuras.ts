@@ -76,4 +76,5 @@ graph.addVertice(3);
 console.log(graph);
 graph.addEdges(1, { destino: 4, peso: 2 });
 graph.addEdges(1, { destino: 3, peso: 3 });
-graph.showVertices();
+graph.addEdges(2, { destino: 2, peso: 5 });
+graph.BFS(3, graph.vertices.head);

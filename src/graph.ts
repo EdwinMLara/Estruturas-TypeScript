@@ -1,4 +1,5 @@
-import LinkedList from "./list";
+import LinkedList, { NodeL } from "./list";
+import Queue from "./queque";
 import { equals } from "./utils";
 
 interface Adyacencia {
@@ -49,6 +50,19 @@ class GraphLA<Type> {
 
   showVertices() {
     this.vertices.printList();
+  }
+
+  BFS(id: Number, node: NodeL<NodeG<Type>>): Type {
+    if (node.data.id == id) return node.data.payload;
+    let adyacentes = node.data.adyacencia;
+    adyacentes.map((item) => {
+      if (item.destino === id) return;
+      else {
+        console.log(node.data);
+        this.BFS(id, node.next);
+      }
+    });
+    return;
   }
 }
 

@@ -71,10 +71,20 @@ arbolLeftRight.insert(5);
 arbolLeftRight.ordenPorNivel(); */
 
 const graph = new GraphLA(1);
-graph.addVertice(4);
-graph.addVertice(3);
-console.log(graph);
-graph.addEdges(1, { destino: 4, peso: 2 });
-graph.addEdges(1, { destino: 3, peso: 3 });
-graph.addEdges(2, { destino: 2, peso: 5 });
-graph.BFS(3, graph.vertices.head);
+let idV4 = graph.addVertice(4);
+let idV3 = graph.addVertice(3);
+
+graph.addEdges(0, { destino: idV4, peso: 2 });
+graph.addEdges(0, { destino: idV3, peso: 3 });
+graph.addEdges(idV4, { destino: idV3, peso: 1 });
+
+let idV2 = graph.addVertice(2);
+graph.addEdges(idV4, { destino: idV2, peso: 5 });
+graph.addEdges(idV2, { destino: idV3, peso: 7 });
+
+let ruta = graph.BFS(idV3);
+let ruta2 = graph.BFS(idV2);
+
+ruta.printQueue();
+console.log("============");
+ruta2.printQueue();

@@ -41,28 +41,40 @@ class GraphLA<Type> {
     return true;
   }
 
-  addVertice(value: Type): void {
+  addVertice(value: Type): Number {
     let node = new NodeG<Type>(value);
     this.counterId++;
     node.id = this.counterId;
-    this.vertices.insertFirst(node);
+    this.vertices.insertLast(node);
+    return node.id;
   }
 
   showVertices() {
     this.vertices.printList();
   }
 
-  BFS(id: Number, node: NodeL<NodeG<Type>>): Type {
-    if (node.data.id == id) return node.data.payload;
-    let adyacentes = node.data.adyacencia;
-    adyacentes.map((item) => {
-      if (item.destino === id) return;
-      else {
-        console.log(node.data);
-        this.BFS(id, node.next);
-      }
-    });
-    return;
+  BFS(id: Number): Queue<Number> {
+    let queueTranking = null;
+
+    const iterateNodes = (id: Number, node: NodeL<NodeG<Type>>): void => {
+      queueTranking === null
+        ? (queueTranking = new Queue(node.data.id))
+        : queueTranking.enqueue(node.data.id);
+
+      let adyacentes = node.data.adyacencia;
+      adyacentes.map((item) => {
+        queueTranking.enqueue(item.destino);
+        if (item.destino === id) {
+          return;
+        }
+      });
+
+      node.next !== null && iterateNodes(id, node.next);
+    };
+
+    iterateNodes(id, this.vertices.head);
+
+    return queueTranking;
   }
 }
 

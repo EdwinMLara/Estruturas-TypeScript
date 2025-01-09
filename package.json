@@ -8,7 +8,7 @@
     "/dist"
   ],
   "scripts": {
-    "dev": "node ./dist/pruebasEstructuras.js",
+    "dev": "tsc && node ./dist/pruebasEstructuras.js",
     "build": "tsc",
     "test": "jest"
   },

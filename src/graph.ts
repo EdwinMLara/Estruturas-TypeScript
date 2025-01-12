@@ -1,80 +1,74 @@
-import LinkedList, { NodeL } from "./list";
-import Queue from "./queque";
-import { equals } from "./utils";
+import LinkedList from "./list";
 
 interface Adyacencia {
-  destino: Number;
-  peso: Number;
+  destino: number;
+  peso: number;
 }
 
 class NodeG<Type> {
-  id: Number | null;
-  adyacencia: Array<Adyacencia>;
+  adyacencia: LinkedList<Adyacencia> | null;
   payload: Type;
   constructor(value: Type) {
-    this.id = null;
-    this.adyacencia = [];
+    this.adyacencia = null;
     this.payload = value;
   }
 }
 
 class GraphLA<Type> {
   counterId = null;
-  vertices: LinkedList<NodeG<Type>>;
+  vertices: Array<NodeG<Type>>;
 
   constructor(value: Type) {
     this.counterId = 0;
     let node = new NodeG(value);
-    node.id = this.counterId;
-    this.vertices = new LinkedList(node);
+    this.vertices = [];
+    this.vertices.push(node);
   }
 
-  addEdges(id: Number, edge: Adyacencia): boolean {
-    let vertice = this.vertices.head;
-    while (vertice !== null) {
-      if (id === vertice.data.id) {
-        vertice.data.adyacencia.push(edge);
-      }
-      vertice = vertice.next;
+  addEdges(id: number, adyacencia: Adyacencia): boolean {
+    if(this.vertices[adyacencia.destino] === undefined)
+      throw  new Error("The destiny node doesn't exits")
+    if(this.vertices[id].adyacencia === null) {
+      this.vertices[id].adyacencia = new LinkedList<Adyacencia>(adyacencia);
+      return true;
     }
-    if ((vertice = null)) return false;
+    this.vertices[id].adyacencia.insertLast(adyacencia);
     return true;
   }
 
-  addVertice(value: Type): Number {
-    let node = new NodeG<Type>(value);
-    this.counterId++;
-    node.id = this.counterId;
-    this.vertices.insertLast(node);
-    return node.id;
+  addVertice(value: Type): number {
+    let node = new NodeG(value);
+    let newIndex = this.vertices.push(node);
+    return newIndex - 1;
   }
 
-  showVertices() {
-    this.vertices.printList();
-  }
+  /**
+   * 
+   * @param startVertex is the index of the vertex array where i wanna start
+   * the neighbors  are visited in the order ther appear in the adjancecy list
+   */
+  BFS(startVertex: number): Array<string> {
+    const visitedNodes: Set<Type> = new Set();
+    const result: string [] = []; 
 
-  BFS(id: Number): Queue<Number> {
-    let queueTranking = null;
-
-    const iterateNodes = (id: Number, node: NodeL<NodeG<Type>>): void => {
-      queueTranking === null
-        ? (queueTranking = new Queue(node.data.id))
-        : queueTranking.enqueue(node.data.id);
-
-      let adyacentes = node.data.adyacencia;
-      adyacentes.map((item) => {
-        queueTranking.enqueue(item.destino);
-        if (item.destino === id) {
-          return;
+    const iterateGraph = (startVertex : number) => {
+      let value = this.vertices[startVertex].payload;
+      if(!visitedNodes.has(value)){
+        visitedNodes.add(value);
+        result.push(value.toString());
+        let adjacencyList = this.vertices[startVertex].adyacencia 
+        if(adjacencyList === null) 
+          return 
+        let currentNode = adjacencyList.head;
+        while(currentNode !== null) {
+          let adjacency = currentNode.data;
+          iterateGraph(adjacency.destino);
+          currentNode = currentNode.next;
         }
-      });
-
-      node.next !== null && iterateNodes(id, node.next);
-    };
-
-    iterateNodes(id, this.vertices.head);
-
-    return queueTranking;
+      } 
+    }
+    iterateGraph(startVertex)
+    return result;
   }
 }
 

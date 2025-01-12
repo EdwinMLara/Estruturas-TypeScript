@@ -47,7 +47,7 @@ class GraphLA<Type> {
    * @param startVertex is the index of the vertex array where i wanna start
    * the neighbors  are visited in the order ther appear in the adjancecy list
    */
-  BFS(startVertex: number): Array<string> {
+  DFS(startVertex: number): Array<string> {
     const visitedNodes: Set<Type> = new Set();
     const result: string [] = []; 
 

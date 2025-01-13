@@ -1,4 +1,5 @@
 import LinkedList from "./list";
+import Queue from "./queque";
 
 interface Adyacencia {
   destino: number;
@@ -67,8 +68,73 @@ class GraphLA<Type> {
         }
       } 
     }
+
     iterateGraph(startVertex)
     return result;
+  }
+
+  BFS(startVertex: number) : Array<string> {
+    const visitedNodes: Set<Type> = new Set();
+    const result: string [] = [];
+    let toVisist: Queue<number> = null;
+
+    const iterateGraph = (startVertex : number) => {
+      let value = this.vertices[startVertex].payload;
+      let visited = visitedNodes.has(value);
+
+      if(!visited){
+        visitedNodes.add(value);
+        result.push(value.toString());
+      }
+
+      let adjacencyList = this.vertices[startVertex].adyacencia;
+      
+      if(adjacencyList === null) 
+        return
+
+      let currentNode = adjacencyList.head;
+
+      while(currentNode !== null) {
+        
+        let adjacency = currentNode.data;
+
+        toVisist === null ? toVisist = new Queue(adjacency.destino) : toVisist.enqueue(adjacency.destino)
+        let nextValue = this.vertices[adjacency.destino].payload;
+
+        if(!visitedNodes.has(nextValue)){
+          visitedNodes.add(nextValue);
+          result.push(nextValue.toString());
+        }
+        
+        currentNode = currentNode.next;
+      }
+      
+      iterateGraph(toVisist.dequeue());
+    }
+
+    iterateGraph(startVertex);
+    return result;
+  }
+
+  PrintData():void{
+    let auxLength = this.vertices.length;
+    for(let i=0; i < auxLength ; i++){
+      let nodeG= this.vertices[i];
+      let value = nodeG.payload;
+      
+      if(nodeG.adyacencia === null){
+        console.log(`${value} : null `);
+        continue
+      }
+      let adjacencyListHead = nodeG.adyacencia.head;
+      let result =  '';
+      while(adjacencyListHead !== null){
+        result = result + adjacencyListHead.data.destino + '-> '  
+        adjacencyListHead = adjacencyListHead.next;
+      }
+      result = result + 'null'
+      console.log(`${value} : ${result}`);
+    }
   }
 }
 
